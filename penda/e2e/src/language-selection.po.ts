@@ -1,4 +1,4 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, promise } from 'protractor';
 
 export class LanguageSelectionPage {
   navigateTo(): Promise<unknown> {
@@ -9,11 +9,11 @@ export class LanguageSelectionPage {
     return element(by.css('app-root h1')).getText() as Promise<string>;
   }
 
-    selectLanguage(language: string) {
-        return element(by.cssContainingText('#languages option', new RegExp("^" + language + "$")))
+    selectLanguage(language: string): promise.Promise<void> {
+        return element(by.cssContainingText('#languages option', new RegExp('^' + language + '$')))
             .click()
             .then(() => {
                 return element(by.id('language-submit')).click();
-            })
+            });
     }
 }
